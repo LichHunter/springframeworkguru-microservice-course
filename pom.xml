@@ -19,6 +19,7 @@
   <modules>
     <module>mssc-brewery</module>
     <module>mssc-beer-service</module>
+    <module>mssc-brewery-client</module>
   </modules>
 
   <dependencies>
