@@ -2,6 +2,9 @@ package spring.course.mssc.brewery.web.model;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +19,10 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = PRIVATE)
 public class CustomerDto {
+    @NotNull
     UUID id;
+
+    @NotBlank
+    @Size(min = 3, max = 100)
     String name;
 }
