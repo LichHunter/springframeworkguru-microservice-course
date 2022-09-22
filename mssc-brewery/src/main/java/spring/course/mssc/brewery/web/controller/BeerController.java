@@ -1,5 +1,6 @@
 package spring.course.mssc.brewery.web.controller;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody BeerDto dto) {
+    public ResponseEntity handlePost(@Valid @RequestBody BeerDto dto) {
         BeerDto savedDto = beerService.saveNewBeer(dto);
         HttpHeaders headers = new HttpHeaders();
         //todo add host name to url
@@ -41,7 +42,7 @@ public class BeerController {
     }
 
     @PutMapping("/{beerId}")
-    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID id, @RequestBody BeerDto dto) {
+    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID id, @Valid @RequestBody BeerDto dto) {
         beerService.updateBeer(id, dto);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
