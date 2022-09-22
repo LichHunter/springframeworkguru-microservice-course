@@ -1,15 +1,11 @@
 package spring.course.mssc.brewery.web.controller;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,10 +59,4 @@ public class CustomerController {
         customerService.deleteById(id);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<List<String>> validationErrorHandler(ConstraintViolationException e) {
-        return new ResponseEntity<>(e.getConstraintViolations().stream()
-            .map(error -> error.getPropertyPath() + " : " + error.getMessage())
-            .collect(Collectors.toList()), BAD_REQUEST);
-    }
 }
