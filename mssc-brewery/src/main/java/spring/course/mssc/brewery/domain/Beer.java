@@ -1,5 +1,6 @@
 package spring.course.mssc.brewery.domain;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -16,4 +17,7 @@ public class Beer {
     private String beerName;
     private String beerStyle;
     private Long upc;
+
+    private Timestamp createdDate;
+    private Timestamp lastUpdatedDate;
 }
