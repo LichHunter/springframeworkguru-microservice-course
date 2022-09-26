@@ -34,9 +34,9 @@ public class Beer {
     private Long version;
     @CreationTimestamp
     @Column(updatable = false)
-    private Timestamp createdDate;
+    private Timestamp createDate;
     @UpdateTimestamp
-    private Timestamp lastModified;
+    private Timestamp lastModifiedDate;
     private String beerName;
     private String beerStyle;
     @Column(unique = true)
