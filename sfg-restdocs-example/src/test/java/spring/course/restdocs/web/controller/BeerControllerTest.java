@@ -7,6 +7,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
@@ -77,10 +78,22 @@ class BeerControllerTest {
         String beerDtoJson = mapper.writeValueAsString(dto);
 
         mockMvc.perform(
-            post("/api/v1/beer/")
-                .contentType(APPLICATION_JSON)
-                .content(beerDtoJson)
-        ).andExpect(status().isCreated());
+                post("/api/v1/beer/")
+                    .contentType(APPLICATION_JSON)
+                    .content(beerDtoJson)
+            ).andExpect(status().isCreated())
+            .andDo(document("v1/beer",
+                requestFields(
+                    fieldWithPath("id").ignored(),
+                    fieldWithPath("version").ignored(),
+                    fieldWithPath("createDate").ignored(),
+                    fieldWithPath("lastModifiedDate").ignored(),
+                    fieldWithPath("beerName").description("Beer name"),
+                    fieldWithPath("beerStyle").description("Beer style"),
+                    fieldWithPath("upc").description("UPC of beer").attributes(),
+                    fieldWithPath("price").description("Price"),
+                    fieldWithPath("quantityOnHand").ignored()
+                )));
     }
 
     @Test
