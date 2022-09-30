@@ -6,6 +6,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,9 +52,23 @@ class BeerControllerTest {
         mockMvc.perform(
                 get("/api/v1/beer/{beerId}", id.toString()).accept(APPLICATION_JSON)
             ).andExpect(status().isOk())
-            .andDo(document("v1/beer", pathParameters(
-                parameterWithName("beerId").description("UUID of desired beer to get.")
-            )));
+            .andDo(document("v1/beer",
+                    pathParameters(
+                        parameterWithName("beerId").description("UUID of desired beer to get.")
+                    ),
+                    responseFields(
+                        fieldWithPath("id").description("Id of Beer"),
+                        fieldWithPath("version").description("Version number"),
+                        fieldWithPath("createDate").description("Date created"),
+                        fieldWithPath("lastModifiedDate").description("Date updated"),
+                        fieldWithPath("beerName").description("Beer name"),
+                        fieldWithPath("beerStyle").description("Beer style"),
+                        fieldWithPath("upc").description("UPC of beer"),
+                        fieldWithPath("price").description("Price"),
+                        fieldWithPath("quantityOnHand").description("Quantity on hand")
+                    )
+                )
+            );
     }
 
     @Test
