@@ -1,6 +1,7 @@
 package spring.cource.mssc.jackson.examples.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -15,6 +16,7 @@ public class BaseTest {
                 .lastUpdatedDate(OffsetDateTime.now())
                 .price(new BigDecimal("12.99"))
                 .upc(1L)
+                .date(LocalDate.now())
                 .build();
     }
 }
